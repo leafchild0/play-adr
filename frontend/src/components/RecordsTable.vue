@@ -79,8 +79,8 @@ export default {
     return {};
   },
   methods: {
-    edit: (row) => {
-      console.log(row);
+    edit(row) {
+      this.$router.push({ name: 'edit', params: { id: row.id } })
     },
   },
 };

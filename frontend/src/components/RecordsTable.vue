@@ -90,6 +90,11 @@ export default {
 .records-table {
   display: flex;
   justify-content: center;
+  flex: 1 1 auto;
+  min-width: 1px;
+  max-width: 80%;
+  margin: 0 auto;
+  width: 100%;
 }
 
 .content-name {

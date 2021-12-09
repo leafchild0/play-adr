@@ -1,0 +1,4 @@
+rootProject.name = 'play-adr'
+include 'backend'
+include 'frontend'
+

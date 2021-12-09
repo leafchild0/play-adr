@@ -1,0 +1,19 @@
+.idea/
+
+# IntelliJ project files
+.idea
+*.iml
+
+/logs/
+/modules
+/project/project
+/project/target
+/target
+tmp/
+/dist/
+.cache
+
+### Gradle template
+.gradle
+**/build/
+!src/**/build/

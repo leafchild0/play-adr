@@ -9,6 +9,8 @@
 </template>
 
 <style lang="scss">
+@import "~vue-wysiwyg/dist/vueWysiwyg.css";
+
 #app {
   font-family: "Helvetica Neue", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

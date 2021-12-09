@@ -1,0 +1,62 @@
+{
+  "name": "play-adr-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Frontend for ADR project",
+  "author": {
+    "name": "vmalyshev0@gmail.com"
+  },
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "buefy": "^0.9.13",
+    "core-js": "^3.6.5",
+    "vue": "^2.6.14",
+    "vue-router": "^3.2.0",
+    "vue-template-compiler": "2.6.14"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-plugin-router": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "@vue/compiler-sfc": "^3.0.0",
+    "@vue/eslint-config-prettier": "^6.0.0",
+    "babel-eslint": "^10.1.0",
+    "dart-sass": "^1.25.0",
+    "eslint": "^6.7.2",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-vue": "^7.0.0",
+    "prettier": "^2.2.1",
+    "sass": "^1.26.5",
+    "sass-loader": "^8.0.2",
+    "vue-template-compiler": "^2.6.11"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "eslint:recommended",
+      "@vue/prettier",
+      "plugin:vue/essential"
+    ],
+    "parserOptions": {
+      "parser": "babel-eslint"
+    },
+    "rules": {}
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "_id": "play-adr-frontend@1.0.0",
+  "license": "ISC",
+  "readme": "ERROR: No README data found!"
+}

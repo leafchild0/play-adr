@@ -9,7 +9,14 @@
     </b-field>
 
     <b-field horizontal label="Status">
-      <b-input v-model="record.status" disabled></b-input>
+      <b-select placeholder="Select status" v-model="record.status" disabled="!isNew">
+        <option
+            v-for="option in statuses"
+            :value="option.label"
+            :key="option.name">
+          {{ option.label }}
+        </option>
+      </b-select>
     </b-field>
 
     <b-field horizontal label="Proposal">
@@ -23,12 +30,20 @@ export default {
   name: "AddEditRecord",
   data() {
     return {
-      record: {}
+      record: {},
+      statuses: [
+        {name: 'SUGGESTED', label: 'Suggested'},
+        {name: 'APPROVED', label: 'Approved'},
+        {name: 'SUSPENDED', label: 'Suspended'},
+      ]
     };
   },
   computed: {
     id() {
       return this.$route.params.id
+    },
+    isNew() {
+      return this.$route.params.id === 'new'
     }
   },
   mounted() {
@@ -56,6 +71,7 @@ export default {
   display: flex;
   justify-items: center;
   flex-direction: column;
+  max-width: 80%;
 }
 
 </style>

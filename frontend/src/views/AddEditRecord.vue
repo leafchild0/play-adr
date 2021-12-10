@@ -1,7 +1,7 @@
 <template>
   <div class="edit-record">
     <b-field horizontal label="Name">
-      <b-input v-model="record.name" maxlength="255"></b-input>
+      <b-input v-model="record.name" maxlength="100" required></b-input>
     </b-field>
 
     <b-field horizontal label="Date" v-if="isEdit">
@@ -24,8 +24,8 @@
       <wysiwyg v-model="record.consequences" class="wysiwyg"></wysiwyg>
     </b-field>
     <div class="controls">
-      <b-button type="is-success">Save</b-button>
-      <b-button>Cancel</b-button>
+      <b-button type="is-success" @click="saveRecord">Save</b-button>
+      <b-button @click="goBack">Cancel</b-button>
     </div>
   </div>
 </template>
@@ -62,6 +62,29 @@ export default {
         }
       }
       return color;
+    }
+  },
+  methods: {
+    goBack() {
+      this.$router.push('/');
+    },
+    saveRecord() {
+      // Validate data
+      if(this.validateData()) {
+
+        // Save record
+
+        // Go back
+        this.goBack();
+
+      }
+    },
+    validateData() {
+      if (!this.record.context || !this.record.decision || !this.record.consequences) {
+        this.$buefy.snackbar.open({message: `Some of the required fields are empty`, type: 'is-danger'});
+        return false;
+      }
+      else return true;
     }
   },
   mounted() {

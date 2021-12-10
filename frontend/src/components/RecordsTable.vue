@@ -45,11 +45,23 @@
       <b-table-column custom-key="actions" label="Actions" v-slot="props">
         <b-button
           class="button is-small is-light"
-          icon-left="circle-edit-outline"
-          type="is-success is-light"
-          rounded
-          @click="edit(props.row)"
-        >
+          icon-left="pencil"
+          type="is-primary is-light"
+          @click="edit(props.row)">
+        </b-button>
+        <b-button
+            v-if="props.row.status === 'SUGGESTED'"
+            class="button is-small is-success"
+            icon-left="check"
+            type="is-success is-light"
+            @click="approve(props.row)">
+        </b-button>
+        <b-button
+            v-if="props.row.status === 'APPROVED'"
+            class="button is-small is-danger"
+            icon-left="close-circle"
+            type="is-danger is-light"
+            @click="suspend(props.row)">
         </b-button>
       </b-table-column>
 
@@ -82,6 +94,17 @@ export default {
     edit(row) {
       this.$router.push({ name: 'edit', params: { id: row.id } })
     },
+    approve(row) {
+      row.status = 'APPROVED';
+      this.save(row);
+    },
+    suspend(row) {
+      row.status = 'SUSPENDED';
+      this.save(row);
+    },
+    save(row) {
+      // Save record
+    }
   },
 };
 </script>

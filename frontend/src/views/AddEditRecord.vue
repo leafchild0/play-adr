@@ -5,7 +5,7 @@
     </b-field>
 
     <b-field horizontal label="Date" v-if="isEdit">
-      <b-input v-model="record.date" disabled></b-input>
+      <b-input :value="record.date" disabled></b-input>
     </b-field>
 
     <b-field horizontal label="Status" v-if="isEdit">
@@ -31,6 +31,8 @@
 </template>
 
 <script>
+import api from '../api/records';
+
 export default {
   name: "AddEditRecord",
   data() {
@@ -73,6 +75,12 @@ export default {
       if(this.validateData()) {
 
         // Save record
+        if (this.isEdit) api.updateRecord(this.record.id, this.record);
+        else {
+          this.record.date = new Date().toDateString();
+          this.record.status = 'PROPOSED';
+          api.saveRecord(this.record);
+        }
 
         // Go back
         this.goBack();
@@ -80,7 +88,7 @@ export default {
       }
     },
     validateData() {
-      if (!this.record.context || !this.record.decision || !this.record.consequences) {
+      if (!this.record.context || !this.record.decision || !this.record.consequences || !this.record.name) {
         this.$buefy.snackbar.open({message: `Some of the required fields are empty`, type: 'is-danger'});
         return false;
       }
@@ -90,15 +98,12 @@ export default {
   mounted() {
     if (this.isEdit) {
       // Fetch record by id
-      this.record = {
-        id: 1,
-        name: "Learn Play Framework",
-        status: "SUGGESTED",
-        date: "2016-10-15 13:43:27",
-        context: `<p>What is the context of this decision? It is important to capture the full context of the decision so that the reader knows the reasons behind it.</p>`,
-        decision: `<p>The decision that was made. For instance, use <a href="https://www.elastic.co/">Elasticsearch</a> for an enterprise-wide search API.</p>`,
-        consequences: `<p>In this section, you can add what would happen if this decision is made. It is important to list all consequences, both positive and negative.</p>`
-      }
+      api.getRecord(this.id).then(record => {
+        this.record = record;
+      }).catch(e => {
+        console.error(e);
+        this.$buefy.snackbar.open({message: `Oops, something bad happened`, type: 'is-danger'});
+      });
     }
   }
 }

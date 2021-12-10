@@ -6,7 +6,7 @@
  */
 
 
-export const updateRecord = async (id, record) => {
+const updateRecord = async (id, record) => {
     const response = await fetch('/api/record/' + id, {
         method: 'PUT',
         ...commonParams,
@@ -15,7 +15,7 @@ export const updateRecord = async (id, record) => {
     return response.json();
 }
 
-export const saveRecord = async (record) => {
+const saveRecord = async (record) => {
     const response = await fetch('/api/record', {
         method: 'POST',
         ...commonParams,
@@ -24,7 +24,7 @@ export const saveRecord = async (record) => {
     return response.json();
 }
 
-export const getRecords = async () => {
+const getRecords = async () => {
     const response = await fetch('/api/records', {
         method: 'GET',
         ...commonParams
@@ -32,7 +32,7 @@ export const getRecords = async () => {
     return response.json();
 }
 
-export const getRecord = async (id) => {
+const getRecord = async (id) => {
     const response = await fetch('/api/records/' + id, {
         method: 'GET',
         ...commonParams,
@@ -48,4 +48,11 @@ const commonParams = {
         'Content-Type': 'application/json'
     },
     referrerPolicy: 'no-referrer',
+}
+
+export default {
+    saveRecord,
+    updateRecord,
+    getRecord,
+    getRecords
 }

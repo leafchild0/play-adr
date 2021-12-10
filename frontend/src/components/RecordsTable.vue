@@ -72,7 +72,7 @@
               <div>
                 <span class="content-name">{{ props.row.name }}</span>
                 <div class="content-date">{{ props.row.date }}</div>
-                <div v-html="props.row.body"></div>
+                <div v-html="props.row.decision"></div>
               </div>
             </div>
           </div>
@@ -83,6 +83,8 @@
 </template>
 
 <script>
+
+import api from '../api/records';
 // Table
 export default {
   name: "RecordsTable",
@@ -104,7 +106,7 @@ export default {
     },
     save(row) {
       // Save record
-      console.log(row);
+      api.updateRecord(row.id, row);
     }
   },
 };

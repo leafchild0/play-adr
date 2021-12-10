@@ -31,86 +31,96 @@
 </template>
 
 <script>
-import api from '../api/records';
+import api from "../api/records";
 
 export default {
   name: "AddEditRecord",
   data() {
     return {
-      record: {}
+      record: {},
     };
   },
   computed: {
     id() {
-      return this.$route.params.id
+      return this.$route.params.id;
     },
     isEdit() {
-      return this.$route.params.id !== 'new'
+      return this.$route.params.id !== "new";
     },
     statusType() {
-      let color = '';
+      let color = "";
       if (this.isEdit) {
         switch (this.record.status) {
-          case 'APPROVED':
-            color = 'is-success';
-            break
-          case 'SUGGESTED':
+          case "APPROVED":
+            color = "is-success";
+            break;
+          case "SUGGESTED":
           default:
-            color = 'is-info';
-            break
-          case 'SUSPENDED':
-            color = 'is-danger';
-            break
+            color = "is-info";
+            break;
+          case "SUSPENDED":
+            color = "is-danger";
+            break;
         }
       }
       return color;
-    }
+    },
   },
   methods: {
     goBack() {
-      this.$router.push('/');
+      this.$router.push("/");
     },
     saveRecord() {
       // Validate data
-      if(this.validateData()) {
-
+      if (this.validateData()) {
         // Save record
         if (this.isEdit) api.updateRecord(this.record.id, this.record);
         else {
           this.record.date = new Date().toDateString();
-          this.record.status = 'PROPOSED';
+          this.record.status = "PROPOSED";
           api.saveRecord(this.record);
         }
 
         // Go back
         this.goBack();
-
       }
     },
     validateData() {
-      if (!this.record.context || !this.record.decision || !this.record.consequences || !this.record.name) {
-        this.$buefy.snackbar.open({message: `Some of the required fields are empty`, type: 'is-danger'});
+      if (
+        !this.record.context ||
+        !this.record.decision ||
+        !this.record.consequences ||
+        !this.record.name
+      ) {
+        this.$buefy.snackbar.open({
+          message: `Some of the required fields are empty`,
+          type: "is-danger",
+        });
         return false;
-      }
-      else return true;
-    }
+      } else return true;
+    },
   },
   mounted() {
     if (this.isEdit) {
       // Fetch record by id
-      api.getRecord(this.id).then(record => {
-        this.record = record;
-      }).catch(e => {
-        console.error(e);
-        this.$buefy.snackbar.open({message: `Oops, something bad happened`, type: 'is-danger'});
-      });
+      api
+        .getRecord(this.id)
+        .then((record) => {
+          this.record = record;
+        })
+        .catch((e) => {
+          console.error(e);
+          this.$buefy.snackbar.open({
+            message: `Oops, something bad happened`,
+            type: "is-danger",
+          });
+        });
     }
-  }
-}
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-
 .edit-record {
   display: flex;
   justify-items: center;
@@ -124,5 +134,4 @@ export default {
     margin-right: 10px;
   }
 }
-
 </style>

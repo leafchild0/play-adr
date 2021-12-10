@@ -1,13 +1,19 @@
 <template>
   <div class="home">
-    <b-button type="is-light" rounded icon-left="bookmark-plus" @click="createNewRecord">Add new</b-button>
+    <b-button
+      type="is-light"
+      rounded
+      icon-left="bookmark-plus"
+      @click="createNewRecord"
+      >Add new</b-button
+    >
     <RecordsTable :data="data" :loading="false"></RecordsTable>
   </div>
 </template>
 
 <script>
 import RecordsTable from "@/components/RecordsTable";
-import api from '../api/records';
+import api from "../api/records";
 
 export default {
   name: "Home",
@@ -57,16 +63,22 @@ export default {
   },
   methods: {
     createNewRecord() {
-      this.$router.push({name: 'edit', params: { id: 'new' } });
-    }
+      this.$router.push({ name: "edit", params: { id: "new" } });
+    },
   },
   mounted() {
-    api.getRecords().then(records => {
-      this.data = records;
-    }).catch(e => {
-      console.error(e);
-      this.$buefy.snackbar.open({message: `Oops, something bad happened`, type: 'is-danger'});
-    });
-  }
+    api
+      .getRecords()
+      .then((records) => {
+        this.data = records;
+      })
+      .catch((e) => {
+        console.error(e);
+        this.$buefy.snackbar.open({
+          message: `Oops, something bad happened`,
+          type: "is-danger",
+        });
+      });
+  },
 };
 </script>

@@ -47,21 +47,24 @@
           class="button is-small is-light"
           icon-left="pencil"
           type="is-primary is-light"
-          @click="edit(props.row)">
+          @click="edit(props.row)"
+        >
         </b-button>
         <b-button
-            v-if="props.row.status === 'SUGGESTED'"
-            class="button is-small is-success"
-            icon-left="check"
-            type="is-success is-light"
-            @click="approve(props.row)">
+          v-if="props.row.status === 'SUGGESTED'"
+          class="button is-small is-success"
+          icon-left="check"
+          type="is-success is-light"
+          @click="approve(props.row)"
+        >
         </b-button>
         <b-button
-            v-if="props.row.status === 'APPROVED'"
-            class="button is-small is-danger"
-            icon-left="close-circle"
-            type="is-danger is-light"
-            @click="suspend(props.row)">
+          v-if="props.row.status === 'APPROVED'"
+          class="button is-small is-danger"
+          icon-left="close-circle"
+          type="is-danger is-light"
+          @click="suspend(props.row)"
+        >
         </b-button>
       </b-table-column>
 
@@ -83,8 +86,7 @@
 </template>
 
 <script>
-
-import api from '../api/records';
+import api from "../api/records";
 // Table
 export default {
   name: "RecordsTable",
@@ -94,20 +96,20 @@ export default {
   },
   methods: {
     edit(row) {
-      this.$router.push({ name: 'edit', params: { id: row.id } })
+      this.$router.push({ name: "edit", params: { id: row.id } });
     },
     approve(row) {
-      row.status = 'APPROVED';
+      row.status = "APPROVED";
       this.save(row);
     },
     suspend(row) {
-      row.status = 'SUSPENDED';
+      row.status = "SUSPENDED";
       this.save(row);
     },
     save(row) {
       // Save record
       api.updateRecord(row.id, row);
-    }
+    },
   },
 };
 </script>

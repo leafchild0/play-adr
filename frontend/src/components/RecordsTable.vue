@@ -104,6 +104,7 @@ export default {
     },
     save(row) {
       // Save record
+      console.log(row);
     }
   },
 };

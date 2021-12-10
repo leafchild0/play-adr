@@ -9,14 +9,7 @@
     </b-field>
 
     <b-field horizontal label="Status">
-      <b-select placeholder="Select status" v-model="record.status" disabled="!isNew">
-        <option
-            v-for="option in statuses"
-            :value="option.label"
-            :key="option.name">
-          {{ option.label }}
-        </option>
-      </b-select>
+      <b-tag :type="statusType">{{ record.status }}</b-tag>
     </b-field>
 
     <b-field horizontal label="Proposal">
@@ -30,12 +23,7 @@ export default {
   name: "AddEditRecord",
   data() {
     return {
-      record: {},
-      statuses: [
-        {name: 'SUGGESTED', label: 'Suggested'},
-        {name: 'APPROVED', label: 'Approved'},
-        {name: 'SUSPENDED', label: 'Suspended'},
-      ]
+      record: {}
     };
   },
   computed: {
@@ -44,22 +32,43 @@ export default {
     },
     isNew() {
       return this.$route.params.id === 'new'
+    },
+    statusType() {
+      let color = '';
+      if (!this.isNew) {
+        switch (this.record.status) {
+          case 'APPROVED':
+            color = 'is-success';
+            break
+          case 'SUGGESTED':
+          default:
+            color = 'is-info';
+            break
+          case 'SUSPENDED':
+            color = 'is-danger';
+            break
+        }
+      }
+      return color;
     }
   },
   mounted() {
-    // Load record
-    this.record = {
-      id: 1,
-      name: "Learn Play Framework",
-      status: "SUGGESTED",
-      date: "2016-10-15 13:43:27",
-      body: `<h2 id="-context-"><strong>Context</strong></h2>
+    if (!this.isNew) {
+      // Load record
+      this.record = {
+        id: 1,
+        name: "Learn Play Framework",
+        status: "SUGGESTED",
+        date: "2016-10-15 13:43:27",
+        body: `<h2 id="-context-"><strong>Context</strong></h2>
 <p>What is the context of this decision? It is important to capture the full context of the decision so that the reader knows the reasons behind it.</p>
 <h2 id="-decision-"><strong>Decision</strong></h2>
 <p>The decision that was made. For instance, use <a href="https://www.elastic.co/">Elasticsearch</a> for an enterprise-wide search API.</p>
 <h2 id="-consequences-"><strong>Consequences</strong></h2>
 <p> <em>**</em>In this section, you can add what would happen if this decision is made. It is important to list all consequences, both positive and negative.</p>
-`}
+`
+      }
+    }
   }
 }
 </script>

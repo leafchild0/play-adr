@@ -40,7 +40,7 @@ public class RecordRepositoryImpl implements RecordRepository {
     }
 
     @Override
-    public CompletionStage<Stream<AdrRecord>> list() {
+    public CompletionStage<List<AdrRecord>> list() {
         return supplyAsync(() -> wrap(this::list), executionContext);
     }
 
@@ -50,7 +50,9 @@ public class RecordRepositoryImpl implements RecordRepository {
     }
 
     private AdrRecord findOne(EntityManager em, Long id) {
-        return em.createQuery("select p from AdrRecord p where :id=:id", AdrRecord.class).getSingleResult();
+        return em.createQuery("select p from AdrRecord p where :id=:id", AdrRecord.class)
+                .setParameter("id", id)
+                .getSingleResult();
     }
 
     private <T> T wrap(Function<EntityManager, T> function) {
@@ -68,8 +70,7 @@ public class RecordRepositoryImpl implements RecordRepository {
         return record;
     }
 
-    private Stream<AdrRecord> list(EntityManager em) {
-        List<AdrRecord> persons = em.createQuery("select p from AdrRecord p", AdrRecord.class).getResultList();
-        return persons.stream();
+    private List<AdrRecord> list(EntityManager em) {
+        return em.createQuery("select p from AdrRecord p", AdrRecord.class).getResultList();
     }
 }

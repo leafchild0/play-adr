@@ -3,6 +3,7 @@ package com.leafchild0.adr.repository;
 import com.google.inject.ImplementedBy;
 import com.leafchild0.adr.data.AdrRecord;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletionStage;
 import java.util.stream.Stream;
@@ -33,7 +34,7 @@ public interface RecordRepository {
      * Get all records
      * @return - async stream of records
      */
-    CompletionStage<Stream<AdrRecord>> list();
+    CompletionStage<List<AdrRecord>> list();
 
     /**
      * Returns record by id

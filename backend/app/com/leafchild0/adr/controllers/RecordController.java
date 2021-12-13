@@ -31,7 +31,7 @@ public class RecordController extends Controller {
     public CompletionStage<Result> getAllRecords() {
         return recordRepository.list()
                 .thenComposeAsync(records -> CompletableFuture.supplyAsync(()
-                        -> ok(Json.toJson(records.map(AdrRecord::toDto).collect(Collectors.toList())))));
+                        -> ok(Json.toJson(records.stream().map(AdrRecord::toDto).collect(Collectors.toList())))));
     }
 
     public CompletionStage<Result> getRecordById(String id) {

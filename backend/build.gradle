@@ -33,8 +33,6 @@ dependencies {
     implementation "com.typesafe.play:play-guice_2.12:2.6.15"
     implementation "com.typesafe.play:play-java-jpa_2.12:2.6.15"
 
-    compileOnly 'org.projectlombok:lombok:1.18.22'
-
     testImplementation 'org.scalatestplus.play:scalatestplus-play_2.12:5.1.0'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'

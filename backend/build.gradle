@@ -17,12 +17,18 @@ repositories {
 }
 
 dependencies {
-    implementation "commons-lang:commons-lang:2.6"
-    implementation "com.typesafe.play:play-guice_2.12:2.6.15"
-    implementation "ch.qos.logback:logback-classic:1.2.3"
-    testImplementation "org.scalatestplus.play:scalatestplus-play_2.12:3.1.2"
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    implementation 'commons-lang:commons-lang:20030203.000129'
+    implementation 'com.typesafe.play:play-guice_2.12:2.8.10'
+    implementation 'ch.qos.logback:logback-classic:1.2.7'
+    implementation 'org.hibernate:hibernate-core:5.6.2.Final'
+    implementation 'org.hibernate:hibernate-envers:5.6.2.Final'
+    implementation 'mysql:mysql-connector-java:8.0.27'
+
+    compileOnly 'org.projectlombok:lombok:1.18.22'
+
+    testImplementation 'org.scalatestplus.play:scalatestplus-play_2.12:5.1.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
 }
 
 test {

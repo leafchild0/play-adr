@@ -4,7 +4,6 @@ import com.google.inject.Inject;
 import com.leafchild0.adr.data.AdrRecord;
 import com.leafchild0.adr.data.AdrRecordDTO;
 import com.leafchild0.adr.repository.RecordRepository;
-import lombok.extern.slf4j.Slf4j;
 import play.libs.Json;
 import play.mvc.*;
 
@@ -18,7 +17,6 @@ import java.util.stream.Collectors;
  * @author vmalyshev
  */
 
-@Slf4j
 public class RecordController extends Controller {
 
     private final RecordRepository recordRepository;
@@ -41,13 +39,21 @@ public class RecordController extends Controller {
 
     public CompletionStage<Result> updateRecord() {
         AdrRecordDTO dto = Json.fromJson(request().body().asJson(), AdrRecordDTO.class);
-        return CompletableFuture.supplyAsync(() -> ok(Json.toJson(recordRepository.update(dto.toRecord()))));
+        System.out.println(dto.toString());
+        return recordRepository.update(dto.toRecord())
+                .thenComposeAsync(record -> CompletableFuture.supplyAsync(() -> ok(Json.toJson(record))));
     }
 
     public CompletionStage<Result> addRecord() {
         AdrRecordDTO dto = Json.fromJson(request().body().asJson(), AdrRecordDTO.class);
-        return CompletableFuture.supplyAsync(() -> ok(Json.toJson(
-                recordRepository.add(dto.toRecord()))));
+        System.out.println(request().body().asJson().toString());
+        System.out.println(dto.toRecord().toString());
+        return recordRepository.add(dto.toRecord())
+                .thenApply(record -> {
+                    System.out.println(record.toString());
+                    return record;
+                })
+                .thenComposeAsync(record -> CompletableFuture.supplyAsync(() -> ok(Json.toJson(record))));
     }
 
 }

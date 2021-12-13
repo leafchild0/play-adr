@@ -1,10 +1,5 @@
 package com.leafchild0.adr.data;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.envers.Audited;
@@ -26,10 +21,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "records")
-@Data
 @Audited
-@EqualsAndHashCode
-@ToString
 public class AdrRecord {
 
     public AdrRecord() {
@@ -55,7 +47,7 @@ public class AdrRecord {
 
     @Column(name = "status", length = 40, nullable = false)
     @Enumerated(EnumType.STRING)
-    public RecordStatus status;
+    public RecordStatus status = RecordStatus.SUGGESTED;
 
     @Column(name = "context")
     public String context;
@@ -78,4 +70,17 @@ public class AdrRecord {
         return new AdrRecordDTO(id, name, status.name(), context, decision, consequences, createdAt);
     }
 
+    @Override
+    public String toString() {
+        return "AdrRecord{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", status=" + status +
+                ", context='" + context + '\'' +
+                ", decision='" + decision + '\'' +
+                ", consequences='" + consequences + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
+    }
 }

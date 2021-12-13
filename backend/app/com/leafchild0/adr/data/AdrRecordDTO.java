@@ -1,8 +1,6 @@
 package com.leafchild0.adr.data;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Builder;
-import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -11,7 +9,6 @@ import java.util.Date;
  * Record details POJO for frontend.
  * @author vmalyshev
  */
-@Data
 public class AdrRecordDTO implements Serializable {
 
     private static final long serialVersionUID = -3762372930220248494L;
@@ -39,7 +36,76 @@ public class AdrRecordDTO implements Serializable {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss", timezone="GMT")
     private Date date;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getContext() {
+        return context;
+    }
+
+    public void setContext(String context) {
+        this.context = context;
+    }
+
+    public String getDecision() {
+        return decision;
+    }
+
+    public void setDecision(String decision) {
+        this.decision = decision;
+    }
+
+    public String getConsequences() {
+        return consequences;
+    }
+
+    public void setConsequences(String consequences) {
+        this.consequences = consequences;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
     public AdrRecord toRecord() {
-        return new AdrRecord(id, name, RecordStatus.getStatus(status), context, decision, consequences, new Date(), new Date());
+        return new AdrRecord(id, name, RecordStatus.valueOf(status), context, decision, consequences, new Date(), new Date());
+    }
+
+    @Override
+    public String toString() {
+        return "AdrRecordDTO{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", status='" + status + '\'' +
+                ", context='" + context + '\'' +
+                ", decision='" + decision + '\'' +
+                ", consequences='" + consequences + '\'' +
+                ", date=" + date +
+                '}';
     }
 }

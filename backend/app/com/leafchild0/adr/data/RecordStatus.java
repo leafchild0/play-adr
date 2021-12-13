@@ -6,7 +6,7 @@ package com.leafchild0.adr.data;
  * @date 13.12.2021
  */
 public enum RecordStatus {
-    SUGGESTED("Supended"),
+    SUGGESTED("Suspended"),
     APPROVED("Approved"),
     SUSPENDED("Suspended");
 

@@ -1,5 +1,6 @@
 package com.leafchild0.adr.repository;
 
+import com.google.inject.ImplementedBy;
 import com.leafchild0.adr.data.AdrRecord;
 
 import java.util.Optional;
@@ -11,6 +12,7 @@ import java.util.stream.Stream;
  * @author vmalyshev
  * @date 13.12.2021
  */
+@ImplementedBy(RecordRepositoryImpl.class)
 public interface RecordRepository {
 
     /**

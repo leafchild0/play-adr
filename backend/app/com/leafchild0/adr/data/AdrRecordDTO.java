@@ -12,10 +12,22 @@ import java.util.Date;
  * @author vmalyshev
  */
 @Data
-@Builder
 public class AdrRecordDTO implements Serializable {
 
     private static final long serialVersionUID = -3762372930220248494L;
+
+    public AdrRecordDTO() {
+    }
+
+    public AdrRecordDTO(Long id, String name, String status, String context, String decision, String consequences, Date date) {
+        this.id = id;
+        this.name = name;
+        this.status = status;
+        this.context = context;
+        this.decision = decision;
+        this.consequences = consequences;
+        this.date = date;
+    }
 
     private Long id;
     private String name;

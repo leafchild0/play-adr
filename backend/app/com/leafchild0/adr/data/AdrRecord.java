@@ -28,11 +28,23 @@ import java.util.Date;
 @Table(name = "records")
 @Data
 @Audited
-@NoArgsConstructor
-@AllArgsConstructor
 @EqualsAndHashCode
 @ToString
 public class AdrRecord {
+
+    public AdrRecord() {
+    }
+
+    public AdrRecord(Long id, String name, RecordStatus status, String context, String decision, String consequences, Date createdAt, Date updatedAt) {
+        this.id = id;
+        this.name = name;
+        this.status = status;
+        this.context = context;
+        this.decision = decision;
+        this.consequences = consequences;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -63,15 +75,7 @@ public class AdrRecord {
     private Date updatedAt;
 
     public AdrRecordDTO toDto() {
-        return AdrRecordDTO.builder()
-                .id(id)
-                .name(name)
-                .date(createdAt)
-                .status(status.name())
-                .consequences(consequences)
-                .context(context)
-                .decision(decision)
-                .build();
+        return new AdrRecordDTO(id, name, status.name(), context, decision, consequences, createdAt);
     }
 
 }

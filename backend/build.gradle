@@ -3,6 +3,9 @@ plugins {
     id 'org.gradle.playframework' version '0.12'
 }
 
+def playVersion = "2.8.0"
+def scalaVersion = System.getProperty("scala.binary.version", /* default = */ "2.12")
+
 repositories {
     mavenCentral()
     maven {
@@ -16,13 +19,19 @@ repositories {
     }
 }
 
+play {
+    injectedRoutesGenerator = true
+}
+
 dependencies {
     implementation 'commons-lang:commons-lang:20030203.000129'
-    implementation 'com.typesafe.play:play-guice_2.12:2.8.10'
     implementation 'ch.qos.logback:logback-classic:1.2.7'
     implementation 'org.hibernate:hibernate-core:5.6.2.Final'
     implementation 'org.hibernate:hibernate-envers:5.6.2.Final'
     implementation 'mysql:mysql-connector-java:8.0.27'
+
+    implementation "com.typesafe.play:play-guice_2.12:2.6.15"
+    implementation "com.typesafe.play:play-java-jpa_2.12:2.6.15"
 
     compileOnly 'org.projectlombok:lombok:1.18.22'
 

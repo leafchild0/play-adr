@@ -34,10 +34,9 @@ public class RecordController extends Controller {
                         -> ok(Json.toJson(records.map(AdrRecord::toDto).collect(Collectors.toList())))));
     }
 
-    public CompletionStage<Result> getRecordById(Long id) {
-        return recordRepository.getById(id).thenComposeAsync(record ->
-                record.map(adrRecord -> CompletableFuture.supplyAsync(() -> Results.ok(Json.toJson(adrRecord.toDto())))).orElseGet(()
-                        -> CompletableFuture.supplyAsync(Results::notFound)));
+    public CompletionStage<Result> getRecordById(String id) {
+        return recordRepository.getById(Long.valueOf(id))
+                .thenComposeAsync(record -> CompletableFuture.supplyAsync(() -> Results.ok(Json.toJson(record.toDto()))));
     }
 
     public CompletionStage<Result> updateRecord() {

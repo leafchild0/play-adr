@@ -40,6 +40,6 @@ public class AdrRecordDTO implements Serializable {
     private Date date;
 
     public AdrRecord toRecord() {
-        return new AdrRecord(id, name, RecordStatus.valueOf(status), context, decision, consequences, new Date(), new Date());
+        return new AdrRecord(id, name, RecordStatus.getStatus(status), context, decision, consequences, new Date(), new Date());
     }
 }

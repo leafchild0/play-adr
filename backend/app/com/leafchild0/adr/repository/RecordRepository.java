@@ -40,5 +40,5 @@ public interface RecordRepository {
      * @param id - id to search
      * @return record by id or empty
      */
-    CompletionStage<Optional<AdrRecord>> getById(Long id);
+    CompletionStage<AdrRecord> getById(Long id);
 }

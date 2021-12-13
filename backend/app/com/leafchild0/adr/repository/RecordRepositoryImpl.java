@@ -45,8 +45,12 @@ public class RecordRepositoryImpl implements RecordRepository {
     }
 
     @Override
-    public CompletionStage<Optional<AdrRecord>> getById(Long id) {
-        return null;
+    public CompletionStage<AdrRecord> getById(Long id) {
+        return supplyAsync(() -> wrap(em -> findOne(em, id)), executionContext);
+    }
+
+    private AdrRecord findOne(EntityManager em, Long id) {
+        return em.createQuery("select p from AdrRecord p where :id=:id", AdrRecord.class).getSingleResult();
     }
 
     private <T> T wrap(Function<EntityManager, T> function) {

@@ -51,7 +51,7 @@
         >
         </b-button>
         <b-button
-          v-if="props.row.status === 'SUGGESTED'"
+          v-if="props.row.status === 'PROPOSED'"
           class="button is-small is-success"
           icon-left="check"
           type="is-success is-light"
@@ -108,7 +108,7 @@ export default {
     },
     save(row) {
       // Save record
-      api.updateRecord(row.id, row);
+      api.updateRecord(row);
     },
   },
 };

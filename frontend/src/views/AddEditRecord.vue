@@ -54,7 +54,7 @@ export default {
           case "APPROVED":
             color = "is-success";
             break;
-          case "SUGGESTED":
+          case "PROPOSED":
           default:
             color = "is-info";
             break;
@@ -74,9 +74,8 @@ export default {
       // Validate data
       if (this.validateData()) {
         // Save record
-        if (this.isEdit) api.updateRecord(this.record.id, this.record);
+        if (this.isEdit) api.updateRecord(this.record);
         else {
-          this.record.date = new Date().toDateString();
           this.record.status = "PROPOSED";
           api.saveRecord(this.record);
         }

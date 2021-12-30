@@ -5,8 +5,8 @@
  * @date 10.12.2021
  */
 
-const updateRecord = async (id, record) => {
-  const response = await fetch("/api/record/" + id, {
+const updateRecord = async (record) => {
+  const response = await fetch("/api/record", {
     method: "PUT",
     ...commonParams,
     body: JSON.stringify(record),
@@ -32,7 +32,7 @@ const getRecords = async () => {
 };
 
 const getRecord = async (id) => {
-  const response = await fetch("/api/records/" + id, {
+  const response = await fetch("/api/record/" + id, {
     method: "GET",
     ...commonParams,
   });

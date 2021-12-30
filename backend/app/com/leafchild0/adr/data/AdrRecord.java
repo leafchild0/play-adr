@@ -27,15 +27,13 @@ public class AdrRecord {
     public AdrRecord() {
     }
 
-    public AdrRecord(Long id, String name, RecordStatus status, String context, String decision, String consequences, Date createdAt, Date updatedAt) {
+    public AdrRecord(Long id, String name, RecordStatus status, String context, String decision, String consequences) {
         this.id = id;
         this.name = name;
         this.status = status;
         this.context = context;
         this.decision = decision;
         this.consequences = consequences;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
     }
 
     @Id
@@ -47,7 +45,7 @@ public class AdrRecord {
 
     @Column(name = "status", length = 40, nullable = false)
     @Enumerated(EnumType.STRING)
-    public RecordStatus status = RecordStatus.SUGGESTED;
+    public RecordStatus status = RecordStatus.PROPOSED;
 
     @Column(name = "context")
     public String context;
@@ -67,7 +65,7 @@ public class AdrRecord {
     private Date updatedAt;
 
     public AdrRecordDTO toDto() {
-        return new AdrRecordDTO(id, name, status.name(), context, decision, consequences, createdAt);
+        return new AdrRecordDTO(id, name, status.name(), context, decision, consequences);
     }
 
     @Override

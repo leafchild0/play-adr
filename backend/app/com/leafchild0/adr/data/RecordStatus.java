@@ -2,11 +2,12 @@ package com.leafchild0.adr.data;
 
 /**
  * Enum for Status
+ *
  * @author vmalyshev
  * @date 13.12.2021
  */
 public enum RecordStatus {
-    SUGGESTED("Suspended"),
+    PROPOSED("Proposed"),
     APPROVED("Approved"),
     SUSPENDED("Suspended");
 

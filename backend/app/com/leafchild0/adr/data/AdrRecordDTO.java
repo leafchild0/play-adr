@@ -16,14 +16,13 @@ public class AdrRecordDTO implements Serializable {
     public AdrRecordDTO() {
     }
 
-    public AdrRecordDTO(Long id, String name, String status, String context, String decision, String consequences, Date date) {
+    public AdrRecordDTO(Long id, String name, String status, String context, String decision, String consequences) {
         this.id = id;
         this.name = name;
         this.status = status;
         this.context = context;
         this.decision = decision;
         this.consequences = consequences;
-        this.date = date;
     }
 
     private Long id;
@@ -32,9 +31,6 @@ public class AdrRecordDTO implements Serializable {
     private String context;
     private String decision;
     private String consequences;
-
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss", timezone="GMT")
-    private Date date;
 
     public Long getId() {
         return id;
@@ -84,16 +80,8 @@ public class AdrRecordDTO implements Serializable {
         this.consequences = consequences;
     }
 
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
     public AdrRecord toRecord() {
-        return new AdrRecord(id, name, RecordStatus.valueOf(status), context, decision, consequences, new Date(), new Date());
+        return new AdrRecord(id, name, RecordStatus.getStatus(status), context, decision, consequences);
     }
 
     @Override
@@ -105,7 +93,6 @@ public class AdrRecordDTO implements Serializable {
                 ", context='" + context + '\'' +
                 ", decision='" + decision + '\'' +
                 ", consequences='" + consequences + '\'' +
-                ", date=" + date +
                 '}';
     }
 }

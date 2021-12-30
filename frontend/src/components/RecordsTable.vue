@@ -45,6 +45,13 @@
       <b-table-column custom-key="actions" label="Actions" v-slot="props">
         <b-button
           class="button is-small is-light"
+          icon-left="history"
+          type="is-primary is-light"
+          @click="showHistory(props.row.id)"
+        >
+        </b-button>
+        <b-button
+          class="button is-small is-light"
           icon-left="pencil"
           type="is-primary is-light"
           @click="edit(props.row)"
@@ -82,17 +89,23 @@
         </article>
       </template>
     </b-table>
+    <HistoryModal :is-shown="isHistoryShown" :id="historyId" @close-modal="isHistoryShown=false"/>
   </div>
 </template>
 
 <script>
 import api from "../api/records";
+import HistoryModal from "@/components/HistoryModal";
 // Table
 export default {
   name: "RecordsTable",
+  components: { HistoryModal },
   props: ["data", "loading"],
   data() {
-    return {};
+    return {
+      isHistoryShown: false,
+      historyId: 0,
+    };
   },
   methods: {
     edit(row) {
@@ -109,6 +122,12 @@ export default {
     save(row) {
       // Save record
       api.updateRecord(row);
+    },
+    showHistory(id) {
+      // Show Modal
+      // Load data by id
+      this.isHistoryShown = true;
+      this.historyId = id;
     },
   },
 };

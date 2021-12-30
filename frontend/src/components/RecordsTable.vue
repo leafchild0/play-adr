@@ -127,7 +127,7 @@ export default {
     },
     save(row) {
       // Save record
-      api.updateRecord(row);
+      this.$emit("save", row);
     },
     showHistory(id) {
       // Show Modal

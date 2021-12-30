@@ -7,7 +7,7 @@
       @click="createNewRecord"
       >Add new</b-button
     >
-    <RecordsTable :data="data" :loading="false"></RecordsTable>
+    <RecordsTable :data="data" :loading="false" @save="saveRecord"></RecordsTable>
   </div>
 </template>
 
@@ -26,6 +26,9 @@ export default {
   methods: {
     createNewRecord() {
       this.$router.push({ name: "edit", params: { id: "new" } });
+    },
+    saveRecord(row) {
+      api.saveRecord(row);
     },
   },
   mounted() {

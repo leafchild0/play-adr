@@ -39,15 +39,12 @@ public class RecordController extends Controller {
 
     public CompletionStage<Result> updateRecord() {
         AdrRecordDTO dto = Json.fromJson(request().body().asJson(), AdrRecordDTO.class);
-        System.out.println(dto.toString());
         return recordRepository.update(dto.toRecord())
                 .thenComposeAsync(record -> CompletableFuture.supplyAsync(() -> ok(Json.toJson(record))));
     }
 
     public CompletionStage<Result> addRecord() {
         AdrRecordDTO dto = Json.fromJson(request().body().asJson(), AdrRecordDTO.class);
-        System.out.println(request().body().asJson().toString());
-        System.out.println(dto.toRecord().toString());
         return recordRepository.add(dto.toRecord())
                 .thenApply(record -> {
                     System.out.println(record.toString());

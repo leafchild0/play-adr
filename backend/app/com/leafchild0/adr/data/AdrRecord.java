@@ -65,7 +65,7 @@ public class AdrRecord {
     private Date updatedAt;
 
     public AdrRecordDTO toDto() {
-        return new AdrRecordDTO(id, name, status.name(), context, decision, consequences);
+        return new AdrRecordDTO(id, name, status.name(), context, decision, consequences, updatedAt);
     }
 
     @Override

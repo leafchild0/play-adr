@@ -39,6 +39,14 @@ const getRecord = async (id) => {
   return response.json();
 };
 
+const getHistoryForRecord = async (id) => {
+  const response = await fetch(`/api/record/${id}/history`, {
+    method: "GET",
+    ...commonParams,
+  });
+  return response.json();
+};
+
 const commonParams = {
   mode: "same-origin",
   cache: "no-cache",
@@ -54,4 +62,5 @@ export default {
   updateRecord,
   getRecord,
   getRecords,
+  getHistoryForRecord
 };

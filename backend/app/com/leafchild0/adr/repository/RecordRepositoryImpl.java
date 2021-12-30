@@ -50,7 +50,7 @@ public class RecordRepositoryImpl implements RecordRepository {
     }
 
     private AdrRecord findOne(EntityManager em, Long id) {
-        return em.createQuery("select p from AdrRecord p where :id=:id", AdrRecord.class)
+        return em.createQuery("select p from AdrRecord p where id=:id", AdrRecord.class)
                 .setParameter("id", id)
                 .getSingleResult();
     }

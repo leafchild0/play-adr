@@ -7,7 +7,11 @@
       @click="createNewRecord"
       >Add new</b-button
     >
-    <RecordsTable :data="data" :loading="false" @save="saveRecord"></RecordsTable>
+    <RecordsTable
+      :data="data"
+      :loading="false"
+      @save="saveRecord"
+    ></RecordsTable>
   </div>
 </template>
 

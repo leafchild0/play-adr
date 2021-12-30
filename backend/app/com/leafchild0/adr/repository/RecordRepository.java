@@ -42,4 +42,11 @@ public interface RecordRepository {
      * @return record by id or empty
      */
     CompletionStage<AdrRecord> getById(Long id);
+
+    /**
+     * Returns list of history by id
+     * @param id - id to search
+     * @return record by id or empty
+     */
+    CompletionStage<List<AdrRecord>> getHistoryForRecord(Long id);
 }

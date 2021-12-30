@@ -37,6 +37,12 @@ public class RecordController extends Controller {
                 .thenComposeAsync(record -> CompletableFuture.supplyAsync(() -> Results.ok(Json.toJson(record.toDto()))));
     }
 
+    public CompletionStage<Result> getRecordHistoryById(String id) {
+        return recordRepository.getHistoryForRecord(Long.valueOf(id))
+                .thenComposeAsync(records -> CompletableFuture.supplyAsync(()
+                        -> ok(Json.toJson(records.stream().map(AdrRecord::toDto).collect(Collectors.toList())))));
+    }
+
     public CompletionStage<Result> updateRecord() {
         AdrRecordDTO dto = Json.fromJson(request().body().asJson(), AdrRecordDTO.class);
         return recordRepository.update(dto.toRecord())

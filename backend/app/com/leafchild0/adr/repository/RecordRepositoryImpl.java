@@ -1,16 +1,15 @@
 package com.leafchild0.adr.repository;
 
 import com.leafchild0.adr.data.AdrRecord;
-
+import org.hibernate.envers.AuditReader;
+import org.hibernate.envers.AuditReaderFactory;
 import play.db.jpa.JPAApi;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.CompletionStage;
 import java.util.function.Function;
-import java.util.stream.Stream;
 
 import static java.util.concurrent.CompletableFuture.supplyAsync;
 
@@ -22,6 +21,7 @@ public class RecordRepositoryImpl implements RecordRepository {
 
     private final JPAApi jpaApi;
     private final DatabaseExecutionContext executionContext;
+    private AuditReader reader;
 
     @Inject
     public RecordRepositoryImpl(JPAApi jpaApi, DatabaseExecutionContext executionContext) {
@@ -47,6 +47,15 @@ public class RecordRepositoryImpl implements RecordRepository {
     @Override
     public CompletionStage<AdrRecord> getById(Long id) {
         return supplyAsync(() -> wrap(em -> findOne(em, id)), executionContext);
+    }
+
+    @Override
+    public CompletionStage<List<AdrRecord>> getHistoryForRecord(Long id) {
+        return supplyAsync(() -> wrap(em -> {
+            reader = AuditReaderFactory.get(jpaApi.em());
+            return reader.createQuery()
+                    .forRevisionsOfEntity(AdrRecord.class, true, true).getResultList();
+        }));
     }
 
     private AdrRecord findOne(EntityManager em, Long id) {

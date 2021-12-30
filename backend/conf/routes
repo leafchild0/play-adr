@@ -3,6 +3,8 @@
 # ~~~~
 GET         /api/record/:id        com.leafchild0.adr.controllers.RecordController.getRecordById(id: String)
 
+GET         /api/record/:id/history           com.leafchild0.adr.controllers.RecordController.getRecordHistoryById(id: String)
+
 GET         /api/records           com.leafchild0.adr.controllers.RecordController.getAllRecords
 
 POST        /api/record            com.leafchild0.adr.controllers.RecordController.addRecord()

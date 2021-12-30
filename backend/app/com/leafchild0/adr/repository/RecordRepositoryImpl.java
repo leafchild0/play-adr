@@ -3,6 +3,7 @@ package com.leafchild0.adr.repository;
 import com.leafchild0.adr.data.AdrRecord;
 import org.hibernate.envers.AuditReader;
 import org.hibernate.envers.AuditReaderFactory;
+import org.hibernate.envers.query.AuditEntity;
 import play.db.jpa.JPAApi;
 
 import javax.inject.Inject;
@@ -54,7 +55,9 @@ public class RecordRepositoryImpl implements RecordRepository {
         return supplyAsync(() -> wrap(em -> {
             reader = AuditReaderFactory.get(jpaApi.em());
             return reader.createQuery()
-                    .forRevisionsOfEntity(AdrRecord.class, true, true).getResultList();
+                    .forRevisionsOfEntity(AdrRecord.class, true, true)
+                    .add(AuditEntity.id().eq(id))
+                    .getResultList();
         }));
     }
 

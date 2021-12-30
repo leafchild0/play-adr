@@ -89,7 +89,12 @@
         </article>
       </template>
     </b-table>
-    <HistoryModal :is-shown="isHistoryShown" :id="historyId" @close-modal="isHistoryShown=false"/>
+    <HistoryModal
+      :is-shown="isHistoryShown"
+      :id="historyId"
+      :data="history"
+      @close-modal="isHistoryShown = false"
+    />
   </div>
 </template>
 
@@ -105,6 +110,7 @@ export default {
     return {
       isHistoryShown: false,
       historyId: 0,
+      history: [],
     };
   },
   methods: {
@@ -128,6 +134,19 @@ export default {
       // Load data by id
       this.isHistoryShown = true;
       this.historyId = id;
+
+      api
+        .getHistoryForRecord(this.historyId)
+        .then((records) => {
+          this.history = records;
+        })
+        .catch((e) => {
+          console.error(e);
+          this.$buefy.snackbar.open({
+            message: `Oops, something bad happened`,
+            type: "is-danger",
+          });
+        });
     },
   },
 };

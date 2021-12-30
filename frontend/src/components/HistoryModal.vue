@@ -44,35 +44,18 @@
 </template>
 
 <script>
-import api from "@/api/records";
-
 export default {
   name: "HistoryModal",
-  props: ["id", "isShown"],
+  props: ["id", "isShown", "data"],
   data() {
     return {
-      data: [],
     };
   },
   methods: {
     closeModal() {
       return this.$emit("close-modal");
     },
-  },
-  mounted() {
-    api
-      .getHistoryForRecord(this.id)
-      .then((records) => {
-        this.data = records;
-      })
-      .catch((e) => {
-        console.error(e);
-        this.$buefy.snackbar.open({
-          message: `Oops, something bad happened`,
-          type: "is-danger",
-        });
-      });
-  },
+  }
 };
 </script>
 
